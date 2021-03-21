@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>js</title>
+  </head>
+<body>
+<script>
+   function kmp(source,pattern){
+       let table = new Array(pattern.length).fill(0);
+       {
+           let i=1,j=0;
+           while(i<pattern.length){
+               if(pattern[i]===pattern[j]){
+                   ++j,++i;
+                   table[i]=j;
+               }else{
+                   if(j>0) j=table[j];
+                   else ++i;
+               }
+           }
+       }
+       {
+           let i=0,j=0;
+           while(i<source.length){
+               if(pattern[j]===source[i]){
+                   ++i,++j;
+               }else{
+                   if(j>0) j=table[j];
+                   else ++i;
+               }
+               if(j===pattern.length) return true;
+           }
+           return false;
+       }
+   }
+    
+   console.log(kmp("abcaaavvfsdr","abcf")) 
+
+</script>
+</body>
+</html>
